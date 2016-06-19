@@ -10,6 +10,8 @@ player = 'X'
 coins = 0
 win_coins = 100
 
+show = True
+
 def random_space(board): #makes random space/place
     rows = len(board)
     cols = len(board[0])
@@ -106,7 +108,7 @@ def visit():
 
 game_board = make_board(8,8,5,10) #FIRST TWO NUM = COL AND ROW LAST TWO NUM = BANDITS AND CHESTS
 (player_row,player_col) = player_placement(game_board)
-print_board(game_board,player_row,player_col,False)
+print_board(game_board,player_row,player_col,show)
 
 player_coins = 0
 keep_playing = True
@@ -114,7 +116,7 @@ won = False
 while keep_playing:
     (player_row,player_col) = ask_for_position(*board_size(game_board))
     player_coins = visit()
-    print_board(game_board,player_row,player_col,False)
+    print_board(game_board,player_row,player_col,show)
     if player_coins >= win_coins:
         keep_playing = False
         won = True
