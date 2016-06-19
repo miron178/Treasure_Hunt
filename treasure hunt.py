@@ -10,7 +10,7 @@ player = 'X'
 coins = 0
 win_coins = 100
 
-show = True
+show = False
 
 def random_space(board): #makes random space/place
     rows = len(board)
@@ -143,8 +143,8 @@ keep_playing = True
 won = False
 while keep_playing:
     (player_row,player_col) = ask_for_position(*board_size(game_board))
-    player_coins = visit(game_board,player_row,player_col,player_coins)
     print_board(game_board,player_row,player_col,show)
+    player_coins = visit(game_board,player_row,player_col,player_coins)
     if player_coins >= win_coins:
         keep_playing = False
         won = True
