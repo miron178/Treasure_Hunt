@@ -56,9 +56,13 @@ def player_placement(board):
     col = 0
     return (row,col)
 
-def print_board(board,player_row,player_col,show):
+def board_size(board):
     rows = len(board)
     cols = len(board[0])
+    return (rows,cols)
+
+def print_board(board,player_row,player_col,show):
+    (rows,cols) = board_size(board)
     print ('printing board %d rows by %d columns, %d coins' % (rows, cols, coins))
     for row in range (rows):
         line=""
