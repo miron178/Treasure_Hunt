@@ -4,7 +4,7 @@ from random import randint
 #making board
 board = []
 for x in range(8):
-    board.append((["◻"]) * 8)
+    board.append((["Q"]) * 8)
 
 def print_board (board):
     for row in board:
@@ -23,6 +23,12 @@ player_row = 7
 player_col = 0
 print ("")
 board[player_row][player_col] = "X"
+
+#make bandit
+
+def Make_bandit (bandit):
+    for row in bandit:
+        print ((" ").join(row))
 
 #make chests
 
@@ -116,7 +122,7 @@ while chest_play > 0:
         board [bandit_col][bandit_row]="B"
         print("another one ")
         print_board(board)
-        print ("you have been robbed")
+        print("you have been robbed")
         board[chest1_row][chest1_col]= "B"
         coins = 0
         print ("play: "+ str(chest_play))
