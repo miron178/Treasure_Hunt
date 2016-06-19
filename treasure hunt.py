@@ -85,8 +85,13 @@ def enter(prompt,min,max):
     correct = False
     while not correct:
         s = input(prompt)
-        value = int(s)
-        correct = (value >= min) and (value <= max)
+
+        try:
+            value = int(s)
+            correct = (value >= min) and (value <= max)
+        except ValueError:
+            pass
+
         if not correct:
             print ("value '%s' is incorrect" % s)
     return value
