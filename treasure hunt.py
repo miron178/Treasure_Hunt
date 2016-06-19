@@ -81,13 +81,44 @@ def print_board(board,player_row,player_col,show):
             line = line + left + mid + right
         print (line)
 
+def enter(prompt,min,max):
+    correct = False
+    while not correct:
+        s = input(prompt)
+        value = int(s)
+        correct = (value >= min) and (value <= max)
+        if not correct:
+            print ("value '%s' is incorrect" % s)
+    return value
+
+def ask_for_position(rows,cols):
+    row = enter("enter row between 0 and %d: " % (rows -1), 0, rows -1)
+    col = enter("enter col between 0 and %d: " % (cols -1), 0, cols -1)
+    return (row,col)
+
+def visit():
+    return 0
+
 game_board = make_board(8,8,5,10) #FIRST TWO NUM = COL AND ROW LAST TWO NUM = BANDITS AND CHESTS
 (player_row,player_col) = player_placement(game_board)
 print_board(game_board,player_row,player_col,False)
 
+player_coins = 0
 keep_playing = True
-
+won = False
 while keep_playing:
-    keep_playing = False
+    (player_row,player_col) = ask_for_position(*board_size(game_board))
+    player_coins = visit()
+    print_board(game_board,player_row,player_col,False)
+    if player_coins >= win_coins:
+        keep_playing = False
+        won = True
+    if coins  + player_coins < win_coins:
+        keep_playing = False
+        won = False
 
-print ("GAME OVER!")
+if won:
+    print ("You Win")
+else:
+    print("You Lose")
+print ("GAME OVER!!!")
