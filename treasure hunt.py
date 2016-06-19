@@ -80,3 +80,10 @@ def print_board(board,player_row,player_col,show):
 game_board = make_board(8,8,5,10) #FIRST TWO NUM = COL AND ROW LAST TWO NUM = BANDITS AND CHESTS
 (player_row,player_col) = player_placement(game_board)
 print_board(game_board,player_row,player_col,False)
+
+keep_playing = True
+
+while keep_playing:
+    keep_playing = False
+
+print ("GAME OVER!")
