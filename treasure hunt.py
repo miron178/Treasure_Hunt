@@ -1,149 +1,75 @@
-#import grid
 from random import randint
 
-#making board
-board = []
-for x in range(8):
-    board.append((["Q"]) * 8)
+empty = '-'
+bandit = 'b'  #makes symbols for bandits, chests and empty spaces used later in code
+chest = 'c'
+player = 'X'
 
-def print_board (board):
-    for row in board:
-        print ((" ").join(row))
+def random_space(board): #makes random space/place
+    rows = len(board)
+    cols = len(board[0])
+    row = randint(0, rows -1)
+    col = randint(0, cols -1)
+    return (row, col)
 
-print("this is the board")
+def is_free (board, row, col): #part of cheking if space is empty
+    return board[row][col] == empty
 
-# make player
+def find_free_space(board): #cheking if space is free
+    found = False # if not free looks for another space
+    while not found:
+        (row,col) = random_space(board)
+        found = is_free (board, row, col)
+    return(row, col)
 
-def row_7(board):
-    return randint(0, len(board) - 1)
-def col_0(board):
-    return randint(0, len(board) - 1)
+def add_one(board, what):
+    (row, col) = find_free_space(board)
+    board[row][col] = what
 
-player_row = 7
-player_col = 0
-print ("")
-board[player_row][player_col] = "X"
+def add_bandits (board, num):
+    for x in range(num):
+        add_one(board, bandit)
 
-#make bandit
+def add_chests (board, num):
+    for x in range(num):
+        add_one(board, chest)
 
-def Make_bandit (bandit):
-    for row in bandit:
-        print ((" ").join(row))
+def make_board(rows, cols, bandits, chests): #uses numbers from the 2nd to bottom line
+    assert(bandits + chests <= rows * cols-1) #makes sure that there are not more bandits and chests than places on grid
+    print ('making board %d rows by %d columns' % (rows, cols)) #%d is replaced by item in brackets after the % behind text
+    board = [[empty for x in range(cols)] for y in range(rows)]
+    board [rows-1][0] = player #stop from placing anything in the bottom left corner
+    add_bandits(board, bandits)
+    add_chests(board, chests)
+    board [rows-1][0] = empty
+    return board
 
-#make chests
+def player_placement(board):
+    row = len(board) - 1
+    col = 0
+    return (row,col)
 
-def Make_Chest (chest):
-    for row in chest:
-        print ((" ").join(row))
+def print_board(board,player_row,player_col,show):
+    rows = len(board)
+    cols = len(board[0])
+    print ('printing board %d rows by %d columns' % (rows, cols))
+    for row in range (rows):
+        line=""
+        for col in range (cols):
+            if row == player_row and col == player_col:
+                left = "["
+                right = "]"
+                mid = board[row][col]
+            else:
+                left = " "
+                right = " "
+                if show:
+                    mid = board[row][col]
+                else:
+                    mid = empty
+            line = line + left + mid + right
+        print (line)
 
-def random_row(board):
-    return randint(0, len(board) - 1)
-def random_col(board):
-    return randint(0, len(board) - 1)
-
-
-#insert chests
-
-chest_row = random_row(board)
-chest_col = random_col(board)
-
-chest_row1 = random_row(board)
-chest_col1 = random_col(board)
-
-chest_row2 = random_row(board)
-chest_col2 = random_col(board)
-
-chest_row3 = random_row(board)
-chest_col3 = random_col(board)
-
-chest_row4 = random_row(board)
-chest_col4 = random_col(board)
-
-chest_row5 = random_row(board)
-chest_col5 = random_col(board)
-
-chest_row6 = random_row(board)
-chest_col6 = random_col(board)
-
-chest_row7 = random_row(board)
-chest_col7 = random_col(board)
-
-chest_row8 = random_row(board)
-chest_col8 = random_col(board)
-
-chest_row9 = random_row(board)
-chest_col9 = random_col(board)
-
-chest1=3
-#repeat for all 10
-
-chest_play = chest1 #plus the rest
-
-board[chest_row][chest_col] = "0"
-
-board[chest_row1][chest_col1] = "1"
-
-board[chest_row2][chest_col2] = "2"
-
-board[chest_row3][chest_col3] = "3"
-
-board[chest_row4][chest_col4] = "4"
-
-board[chest_row5][chest_col5] = "5"
-
-board[chest_row6][chest_col6] = "6"
-
-board[chest_row7][chest_col7] = "7"
-
-board[chest_row8][chest_col8] = "8"
-
-board[chest_row9][chest_col9] = "9"
-
-print_board(board)
-
-#Make coin counter
-
-while chest_play > 0:
-    print ("time to hunt treasure")
-    guess_row = int(input("Guess Row: "))
-    guess_col = int(input("Guess col: "))
-
-    if player_row == chest_row and player_col == chest_col:
-        print ("you landed on a treasure chest!")
-        print ("you have " + str(coins) + "coins")
-        print ("Treasure chest count is " +str(TC_count_1))
-        print ("play: " +str(play))
-        if coins == 100:
-            print_board(board)
-            print ("you win")
-
-        chest_row = bandit_row
-        chest_col = bandit_col
-        board [bandit_col][bandit_row]="B"
-        print("another one ")
-        print_board(board)
-        print("you have been robbed")
-        board[chest1_row][chest1_col]= "B"
-        coins = 0
-        print ("play: "+ str(chest_play))
-
-    if guess_row == bandit_row and guess_col == bandit_col:
-        print ("you have been robbed")
-        board[chest1_row][chest1_col]= "B"
-        coins = 0
-        print ("you now have " + str(coins) + "coins")
-        print_board(board)
-
-    if play <=  0:
-        break
-
-#player moveing
-
-#for turn in range(9001):
- #   print ("")
-  #  print (("Turn"), turn + 1)
-  #  guess_row = int(input("Guess Row: "))
-  #  guess_col = int(input("Guess Col: "))
-
-   # board[guess_row][guess_col] = "X"
-   # print_board(board)
+game_board = make_board(8,8,5,10) #FIRST TWO NUM = COL AND ROW LAST TWO NUM = BANDITS AND CHESTS
+(player_row,player_col) = player_placement(game_board)
+print_board(game_board,player_row,player_col,False)
