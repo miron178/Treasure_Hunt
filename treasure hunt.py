@@ -7,6 +7,9 @@ chest20 = 'c'
 chest10 = '.'
 player = 'X'
 
+coins = 0
+win_coins = 100
+
 def random_space(board): #makes random space/place
     rows = len(board)
     cols = len(board[0])
@@ -35,6 +38,8 @@ def add_bandits (board, num):
 def add_chests (board, num):
     for x in range(num):
         add_one(board, chest30)
+        global coins
+        coins += 30
 
 def make_board(rows, cols, bandits, chests): #uses numbers from the 2nd to bottom line
     assert(bandits + chests <= rows * cols-1) #makes sure that there are not more bandits and chests than places on grid
@@ -54,7 +59,7 @@ def player_placement(board):
 def print_board(board,player_row,player_col,show):
     rows = len(board)
     cols = len(board[0])
-    print ('printing board %d rows by %d columns' % (rows, cols))
+    print ('printing board %d rows by %d columns, %d coins' % (rows, cols, coins))
     for row in range (rows):
         line=""
         for col in range (cols):
