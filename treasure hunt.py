@@ -2,7 +2,9 @@ from random import randint
 
 empty = '-'
 bandit = 'b'  #makes symbols for bandits, chests and empty spaces used later in code
-chest = 'c'
+chest30 = 'C'
+chest20 = 'c'
+chest10 = '.'
 player = 'X'
 
 def random_space(board): #makes random space/place
@@ -32,7 +34,7 @@ def add_bandits (board, num):
 
 def add_chests (board, num):
     for x in range(num):
-        add_one(board, chest)
+        add_one(board, chest30)
 
 def make_board(rows, cols, bandits, chests): #uses numbers from the 2nd to bottom line
     assert(bandits + chests <= rows * cols-1) #makes sure that there are not more bandits and chests than places on grid
