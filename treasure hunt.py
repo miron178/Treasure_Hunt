@@ -103,8 +103,30 @@ def ask_for_position(rows,cols):
     col = enter("enter col between 0 and %d: " % (cols -1), 0, cols -1)
     return (row,col)
 
-def visit():
-    return 0
+def visit(board,row,col,player_coins):
+    global coins
+    if board[row][col] == chest30:
+        board[row][col] = chest20
+        coins -= 10
+        player_coins += 10
+        print("You found a chest with 30 coins and took 10!")
+    elif board[row][col] == chest20:
+        board[row][col] = chest10
+        coins -= 10
+        player_coins += 10
+        print("You found a chest with 20 coins and took 10!")
+    elif board[row][col] == chest10:
+        board[row][col] = bandit
+        coins -= 10
+        player_coins += 10
+        print("You found a chest with 10 coins and took 10!")
+    elif board[row][col] == bandit:
+        player_coins = 0
+        print("You have been robbed!!!")
+    else:
+        print("Nothing to see here, move along.")
+    print("You have %d coins now, %d coins are in the chests" % (player_coins, coins))
+    return player_coins
 
 game_board = make_board(8,8,5,10) #FIRST TWO NUM = COL AND ROW LAST TWO NUM = BANDITS AND CHESTS
 (player_row,player_col) = player_placement(game_board)
@@ -115,7 +137,7 @@ keep_playing = True
 won = False
 while keep_playing:
     (player_row,player_col) = ask_for_position(*board_size(game_board))
-    player_coins = visit()
+    player_coins = visit(game_board,player_row,player_col,player_coins)
     print_board(game_board,player_row,player_col,show)
     if player_coins >= win_coins:
         keep_playing = False
