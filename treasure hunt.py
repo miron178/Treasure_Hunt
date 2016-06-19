@@ -67,8 +67,13 @@ def print_board(board,player_row,player_col,show):
     (rows,cols) = board_size(board)
     #print ('printing board %d rows by %d columns, %d coins' % (rows, cols, coins))
     print()
+    line="  "
+    for col in range (cols):
+        line += " %d " % col
+    print (line)
+
     for row in range (rows):
-        line=""
+        line="%d " % row
         for col in range (cols):
             if row == player_row and col == player_col:
                 left = "["
