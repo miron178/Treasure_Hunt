@@ -65,7 +65,8 @@ def board_size(board):
 
 def print_board(board,player_row,player_col,show):
     (rows,cols) = board_size(board)
-    print ('printing board %d rows by %d columns, %d coins' % (rows, cols, coins))
+    #print ('printing board %d rows by %d columns, %d coins' % (rows, cols, coins))
+    print()
     for row in range (rows):
         line=""
         for col in range (cols):
